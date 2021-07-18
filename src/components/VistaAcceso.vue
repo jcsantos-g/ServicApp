@@ -40,10 +40,10 @@
           @click="acceder = true"
           v-if="!acceder"
         >
-          ¿Ya tienes una cuenta?
+          Ya tengo una cuenta
         </q-btn>
         <q-btn no-caps color="negative" outline @click="acceder = false" v-else>
-          ¿No tienes una cuenta?
+          Crear una cuenta
         </q-btn>
       </q-card-actions>
     </q-card>

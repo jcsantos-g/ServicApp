@@ -28,7 +28,29 @@
       <q-scroll-area class="fit">
         <div class="" style="max-width: 250px">
           <q-list class="text-indigo-10">
-            <q-item clickable v-ripple to="" active-class="my-menu-link">
+            <q-item
+              clickable
+              @click="cerrar()"
+              v-ripple
+              to="/"
+              active-class="my-menu-link"
+              exact
+            >
+              <q-item-section avatar>
+                <q-icon name="home" />
+              </q-item-section>
+
+              <q-item-section>Inicio</q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item
+              clickable
+              @click="cerrar()"
+              v-ripple
+              to=""
+              active-class="my-menu-link"
+              exact
+            >
               <q-item-section avatar>
                 <q-icon name="account_circle" />
               </q-item-section>
@@ -36,7 +58,13 @@
               <q-item-section>Cuenta</q-item-section>
             </q-item>
             <q-separator />
-            <q-item clickable v-ripple to="" active-class="my-menu-link">
+            <q-item
+              clickable
+              @click="cerrar()"
+              v-ripple
+              to="/chats"
+              active-class="my-menu-link"
+            >
               <q-item-section avatar>
                 <q-icon name="chat" />
               </q-item-section>
@@ -47,7 +75,7 @@
             <q-item
               @click="
                 salir();
-                cerrar();
+                cerrarSesion();
               "
               clickable
               v-ripple
@@ -68,7 +96,7 @@
       <router-view></router-view>
     </q-page-container>
     <!-- Footer -->
-    <q-footer elevated v-if="isAuthenticated">
+    <!-- <q-footer elevated v-if="isAuthenticated">
       <q-btn-group spread>
         <q-btn
           to=""
@@ -88,7 +116,7 @@
           label=""
         />
       </q-btn-group>
-    </q-footer>
+    </q-footer> -->
   </q-layout>
 </template>
 
@@ -125,6 +153,10 @@ export default {
   methods: {
     cerrar() {
       this.drawer = false;
+    },
+    cerrarSesion() {
+      this.drawer = false;
+      this.$router.push("/");
     },
   },
 };
