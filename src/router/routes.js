@@ -1,5 +1,3 @@
-// import firebase from "src/boot/firebase";
-
 const routes = [
   {
     path: "/",
@@ -15,6 +13,11 @@ const routes = [
         component: () => import("pages/chats.vue"),
         meta: { requiresAuth: true },
       },
+      {
+        path: "/perfil",
+        component: () => import("pages/perfil.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
 
@@ -25,16 +28,5 @@ const routes = [
     component: () => import("pages/Error404.vue"),
   },
 ];
-
-// router.beforeEach((to, from, next) => {
-//   const rutaAuth = to.matched.some((record) => record.meta.requiresAuth);
-//   const user = app.auth().currenteUser;
-//   if (rutaAuth && user == null) {
-//     next({ name: "/" });
-//   } else {
-//     next();
-//   }
-//   // else next()
-// });
 
 export default routes;

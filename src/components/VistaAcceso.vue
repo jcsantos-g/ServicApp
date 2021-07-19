@@ -9,21 +9,46 @@
       <q-separator />
       <q-card-section class="">
         <q-form class="q-gutter-md q-pa-lg" @submit.prevent="registro">
-          <q-input color="indigo-10" label="Correo" v-model="email">
+          <q-input
+            filled
+            color="indigo-10"
+            label="Nombre"
+            v-if="!acceder"
+            v-model="name"
+          >
+            <template v-slot:prepend>
+              <q-icon name="person" />
+            </template>
+          </q-input>
+          <q-input filled color="indigo-10" label="Correo" v-model="email">
             <template v-slot:prepend>
               <q-icon name="email" />
             </template>
           </q-input>
-          <q-input color="indigo-10" label="Contraseña" v-model="password">
+          <q-input
+            filled
+            :type="isPwd ? 'password' : 'text'"
+            color="indigo-10"
+            label="Contraseña"
+            v-model="password"
+            class="items-center"
+          >
             <template v-slot:prepend>
               <q-icon name="lock" />
+            </template>
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
           <div class="justify-center items-center text-center q-mt-xl">
             <q-btn
               rounded
               dense
-              size="md"
+              size="lg"
               class="full-width"
               color="indigo-10"
               type="submit"
@@ -60,6 +85,7 @@ export default {
   setup() {
     const email = ref("prueba@prueba.com");
     const password = ref("123123");
+    const name = ref("Juan Santos");
 
     const acceder = ref(true);
 
@@ -94,8 +120,25 @@ export default {
             email.value,
             password.value
           );
+          const user = firebase.auth().currentUser;
+
+          if (user) {
+            user
+              .updateProfile({
+                displayName: name.value,
+                // photoURL: "https://example.com/jane-q-user/profile.jpg",
+              })
+              .then(() => {
+                console.log("Nombre guardado: " + user.displayName);
+              })
+              .catch((error) => {
+                console.log("Nombre no guardado");
+              });
+          }
+
           const userDB = userCredential.user;
           await db.collection("users").doc(userDB.uid).set({
+            nombre: name.value,
             correo: userDB.email,
             uid: userDB.uid,
             estado: true,
@@ -127,7 +170,7 @@ export default {
             progress: true,
             color: "negative",
             textColor: "white",
-            message: "El usuario no existe",
+            message: "El usuario no está registrado",
           });
         } else if (error.code == "auth/wrong-password") {
           Notify.create({
@@ -149,12 +192,21 @@ export default {
       }
     };
 
-    return { email, password, registro, acceder, isAuthenticated, user };
+    return {
+      name,
+      email,
+      password,
+      isPwd: ref(true),
+      registro,
+      acceder,
+      isAuthenticated,
+      user,
+    };
   },
 };
 </script>
 <style lang="sass" scoped>
 .my-card
   width: 100%
-  max-width: 300px
+  max-width: 400px
 </style>
