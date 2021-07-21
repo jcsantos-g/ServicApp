@@ -7,7 +7,7 @@ import {
 } from "vue-router";
 import routes from "./routes";
 
-import firebase from "firebase";
+// import firebase from "firebase";
 
 /*
  * If not building with SSR mode, you can
@@ -37,29 +37,16 @@ export default route(function (/* { store, ssrContext } */) {
     ),
   });
 
-  Router.beforeEach((to, from, next) => {
-    // Verifica si la ruta requiere estar autenticado
-    const rutaAuth = to.matched.some((record) => record.meta.requiresAuth);
-    // obtiene la información del perfil del usuario
-    // si es null no ha iniciado sesion
-    const user = firebase.auth().currentUser;
-    console.log(user);
-    if (rutaAuth == true && user == null) {
-      next({ name: "/" });
-    } else {
-      next();
-    }
-    // else next()
-  });
-
-  // Router.beforeEach(async (to, from, next) => {
-  //   // const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-
-  //   // if (requiresAuth && !(await firebase.getCurrentUser())) {
-  //   //   next("signin");
-  //   // } else {
-  //   //   next();
-  //   // }
+  // Router.beforeEach((to, from, next) => {
+  //   const rutaAuth = to.matched.some((record) => record.meta.requiresAuth);
+  //   const user = firebase.auth().currentUser;
+  //   const { path } = to;
+  //   console.log("usuario activo: " + user + ", Path actual: " + path);
+  //   if (rutaAuth == true && user == null) {
+  //     next({ name: "/" });
+  //   } else {
+  //     next();
+  //   }
   // });
 
   return Router;

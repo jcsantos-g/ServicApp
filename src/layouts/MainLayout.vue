@@ -32,7 +32,7 @@
               clickable
               @click="cerrar()"
               v-ripple
-              to="/"
+              to="/inicio"
               active-class="my-menu-link"
               exact
             >
@@ -95,28 +95,6 @@
     <q-page-container>
       <router-view></router-view>
     </q-page-container>
-    <!-- Footer -->
-    <!-- <q-footer elevated v-if="isAuthenticated">
-      <q-btn-group spread>
-        <q-btn
-          to=""
-          color="indigo-10"
-          size="17px"
-          icon="person_search"
-          class="text-grey-4"
-          label=""
-        />
-        <q-separator vertical color="indigo-8" />
-        <q-btn
-          to=""
-          color="indigo-10"
-          size="17px"
-          icon="campaign"
-          class="text-grey-4"
-          label=""
-        />
-      </q-btn-group>
-    </q-footer> -->
   </q-layout>
 </template>
 

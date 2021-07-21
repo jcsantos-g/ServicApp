@@ -1,15 +1,15 @@
 <template>
   <q-page padding>
-    <VistaAcceso v-if="!isAuthenticated" />
+    <VistaAcceso />
 
-    <div
+    <!-- <div
       v-if="isAuthenticated"
       class="row justify-center text-center q-ma-md text-weight-bold text-h5"
     >
       Busca un usuario
-    </div>
+    </div> -->
 
-    <div
+    <!-- <div
       v-if="isAuthenticated"
       class="row justify-center full-height full-width text-center"
     >
@@ -20,6 +20,7 @@
 
           <q-input
             class="buscador2"
+            label="Buscar.."
             dark
             dense
             standout
@@ -31,8 +32,17 @@
           </q-input>
         </q-toolbar>
       </div>
-    </div>
-    <q-footer elevated v-if="isAuthenticated">
+    </div> -->
+    <!-- <div class="q-pa-md q-gutter-sm">
+      <q-card flat bordered v-for="(item, index) in usuarios" :key="index">
+        <q-card-section v-html="item.id" />
+        <q-card-section v-html="item.nombre" />
+        <q-card-section v-html="item.correo" />
+        <q-card-section v-html="item.estado" />
+      </q-card>
+    </div> -->
+    <!-- usuarios -->
+    <!-- <q-footer elevated v-if="isAuthenticated">
       <q-btn-group spread>
         <q-btn
           to=""
@@ -52,53 +62,58 @@
           label=""
         />
       </q-btn-group>
-    </q-footer>
+    </q-footer> -->
   </q-page>
 </template>
 
 <script>
 import VistaAcceso from "../components/VistaAcceso";
-
-import firebase from "firebase";
-import { useAuth } from "@vueuse/firebase/useAuth";
+// import { db } from "boot/firebase";
+// import firebase from "firebase";
+// import { useAuth } from "@vueuse/firebase/useAuth";
 export default {
   components: {
     VistaAcceso,
   },
-  setup() {
-    const { isAuthenticated, user } = useAuth(firebase.auth);
-
+  data() {
     return {
-      user,
-      isAuthenticated,
+      // usuarios: [],
     };
   },
+  setup() {
+    // const { isAuthenticated, user } = useAuth(firebase.auth);
+    // return {
+    //   user,
+    //   isAuthenticated,
+    // };
+  },
+  // created() {
+  //   this.leerUsuarios();
+  // },
+  // methods: {
+  //   // Trae los usuarios de la db
+  //   async leerUsuarios() {
+  //     try {
+  //       // this.$q.loading.show();
+  //       const query = await db.collection("users").get();
+  //       // console.log("Esto trae: " + query.uid);
+  //       query.forEach((element) => {
+  //         let usuario = {
+  //           id: element.data().uid,
+  //           correo: element.data().correo,
+  //           estado: element.data().estado,
+  //           nombre: element.data().nombre,
+  //         };
+  //         this.usuarios.push(usuario);
+  //         // console.log("Esto trae: " + this.usuarios);
+  //       });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     // finally {
+  //     //   this.$q.loading.hide();
+  //     // }
+  //   },
+  // },
 };
 </script>
-
-<style lang="scss" scoped>
-.buscador {
-  width: 500px;
-  max-width: 100%;
-}
-.buscador2 {
-  width: 435px;
-  max-width: 100%;
-}
-@media (max-width: 1024px) {
-  .buscador {
-    width: 400px;
-  }
-  .buscador2 {
-    width: 335px;
-  }
-}
-@media (max-width: 767px) {
-  .buscador {
-    width: 300px;
-  }
-  .buscador2 {
-    width: 235px;
-  }
-}
-</style>

@@ -8,30 +8,16 @@
           <div
             class="row no-wrap justify-center text-center items-center q-mt-md"
           >
-            <div class="col text-h6 ellipsis">{{ user.displayName }}</div>
-            <!-- <div
-              class="
-                col-auto
-                text-grey text-caption
-                q-pt-md
-                row
-                no-wrap
-                items-center
-              "
-            >
-              <q-icon name="place" />
-              250 ft
-            </div> -->
+            <div class="col text-h6 ellipsis">
+              {{ isAuthenticated ? user.displayName : "Cargando..." }}
+            </div>
           </div>
-
-          <!-- <q-rating v-model="stars" :max="5" size="32px" /> -->
         </q-card-section>
 
         <q-card-section class="q-pa-md">
-          <div class="text-subtitle1">{{ user.email }}</div>
-          <!-- <div class="text-caption text-grey">
-            Small plates, salads & sandwiches in an intimate setting.
-          </div> -->
+          <div class="text-subtitle1">
+            {{ isAuthenticated ? user.email : "Cargando..." }}
+          </div>
         </q-card-section>
 
         <!-- <q-separator /> -->
@@ -44,11 +30,6 @@
           icon-right="send"
           class="q-ma-md"
         />
-
-        <!-- <q-card-actions>
-          <q-btn flat round icon="event" />
-          <q-btn flat color="primary"> Reserve </q-btn>
-        </q-card-actions> -->
       </q-card>
     </div>
   </div>
@@ -61,6 +42,13 @@ export default {
   name: "Perfil",
   setup() {
     const { isAuthenticated, user } = useAuth(firebase.auth);
+    // const user = firebase.auth().currentUser;
+    // if (user == null) {
+    //   const displayName = "";
+    //   const email = "";
+    //   const emailVerified = "";
+    //   const uid = "";
+    // }
     return {
       isAuthenticated,
       user,

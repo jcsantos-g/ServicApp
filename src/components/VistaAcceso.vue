@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 import { Notify } from "quasar";
 import { ref } from "vue";
 import { auth, db } from "boot/firebase";
@@ -83,12 +84,11 @@ import firebase from "firebase";
 import { useAuth } from "@vueuse/firebase/useAuth";
 export default {
   setup() {
+    const router = useRouter();
     const email = ref("prueba@prueba.com");
     const password = ref("123123");
     const name = ref("Juan Santos");
-
     const acceder = ref(true);
-
     const { isAuthenticated, user } = useAuth(firebase.auth);
 
     const registro = async () => {
@@ -146,6 +146,7 @@ export default {
         }
         email.value = "";
         password.value = "";
+        router.push("/inicio");
       } catch (error) {
         console.log(error);
         if (error.code == "auth/email-already-in-use") {
@@ -208,5 +209,5 @@ export default {
 <style lang="sass" scoped>
 .my-card
   width: 100%
-  max-width: 400px
+  max-width: 350px
 </style>

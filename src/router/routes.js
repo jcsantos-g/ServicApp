@@ -11,12 +11,17 @@ const routes = [
       {
         path: "/chats",
         component: () => import("pages/chats.vue"),
-        meta: { requiresAuth: true },
+        // meta: { requiresAuth: true },
       },
       {
         path: "/perfil",
         component: () => import("pages/perfil.vue"),
-        meta: { requiresAuth: true },
+        // meta: { requiresAuth: true },
+      },
+      {
+        path: "/inicio",
+        component: () => import("pages/inicio.vue"),
+        // meta: { requiresAuth: true },
       },
     ],
   },
