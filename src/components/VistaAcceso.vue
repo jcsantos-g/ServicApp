@@ -85,9 +85,9 @@ import { useAuth } from "@vueuse/firebase/useAuth";
 export default {
   setup() {
     const router = useRouter();
-    const email = ref("prueba@prueba.com");
-    const password = ref("123123");
-    const name = ref("Juan Santos");
+    const email = ref("");
+    const password = ref("");
+    const name = ref("");
     const acceder = ref(true);
     const { isAuthenticated, user } = useAuth(firebase.auth);
 

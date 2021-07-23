@@ -34,10 +34,6 @@
       </div>
     </div>
     <div class="row justify-center full-height full-width">
-      <!-- <q-toolbar class="bg-primary text-white shadow-2">
-        <q-toolbar-title>Contacts</q-toolbar-title>
-      </q-toolbar> -->
-
       <q-list bordered separator class="resultados">
         <q-item
           v-for="(item, index) in usuariosFiltrados"
@@ -46,39 +42,23 @@
           clickable
           v-ripple
         >
-          <!-- <q-item-section avatar>
-            <q-avatar color="primary" text-color="white">
-              {{ contact.letter }}
-            </q-avatar>
-          </q-item-section> -->
-
           <q-item-section>
             <q-item-label>{{ item.nombre }}</q-item-label>
             <q-item-label caption lines="1">{{ item.correo }}</q-item-label>
           </q-item-section>
 
           <q-item-section side>
-            <q-btn flat round color="indigo-6" icon="send" />
+            <q-btn
+              @click="addContact"
+              flat
+              round
+              color="indigo-6"
+              icon="send"
+            />
           </q-item-section>
         </q-item>
-        <!-- <q-separator /> -->
       </q-list>
     </div>
-    <!-- CARD USUARIOS -->
-    <!-- <div class="q-pa-md q-gutter-sm"> -->
-    <!-- Donde se pinta -->
-    <!-- <q-card
-        flat
-        bordered
-        v-for="(item, index) in usuariosFiltrados"
-        :key="index"
-      > -->
-    <!-- <q-card-section v-html="item.id" /> -->
-    <!-- <q-card-section v-html="item.nombre" />
-        <q-card-section v-html="item.correo" /> -->
-    <!-- <q-card-section v-html="item.estado" /> -->
-    <!-- </q-card>
-    </div> -->
     <!-- FOOTER -->
     <q-footer elevated>
       <q-btn-group spread>
@@ -108,6 +88,8 @@
 import { db } from "boot/firebase";
 import firebase from "firebase";
 import { useAuth } from "@vueuse/firebase/useAuth";
+import { useRouter } from "vue-router";
+
 export default {
   data() {
     return {
@@ -135,10 +117,16 @@ export default {
   },
   setup() {
     const { isAuthenticated, user } = useAuth(firebase.auth);
+    const router = useRouter();
+
+    function addContact() {
+      router.push("/chats");
+    }
 
     return {
       user,
       isAuthenticated,
+      addContact,
     };
   },
   created() {
